@@ -32,17 +32,10 @@ jobs:
         
     - name: Build with Gradle
       run: ./gradlew clean build
-      
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2 
-      with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
-    - name: Build and push Docker
-      uses: docker/build-push-action@v4
-      with:
-          context: .
-          dockerfile: Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service:latest
+
+    - name: Build & Push Docker Image
+      uses: actions/checkout@v3
+      run: |
+        docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password ${{ secrets.DOCKERHUB_TOKEN }}
+        docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service:latest

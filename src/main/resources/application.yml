@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: discovery
+  cloud:
+    loadbalancer:
+      cache:
+        enabled: false
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    fetch-registry: false # đây là Eureka server nên không phải Eureka client chúng ta không cần đăng ký
+    register-with-eureka: false # không cần lấy danh sách các service đã đăng ký

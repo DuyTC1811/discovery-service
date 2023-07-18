@@ -1,10 +1,6 @@
 spring:
   application:
     name: discovery
-  cloud:
-    loadbalancer:
-      cache:
-        enabled: false
 
 server:
   port: 8761
